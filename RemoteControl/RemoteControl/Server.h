@@ -4,7 +4,7 @@ namespace remote {
 	class Server {
 	
 		public:
-			virtual ~Server() = 0;
+			virtual ~Server() = default;
 
 			virtual void start() = 0;
 
