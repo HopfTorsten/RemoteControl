@@ -30,12 +30,21 @@
     <ClInclude Include="ConcreteServer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="TCPConnection.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainApp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ConcreteServer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPConnection.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

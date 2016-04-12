@@ -17,6 +17,7 @@ namespace remote{
 		
 		virtual void start() override;
 		virtual void terminate() override;
+		virtual void interprete(message & msg) override;
 
 
 	private:
@@ -27,6 +28,9 @@ namespace remote{
 		unsigned short port;
 
 		void handleAccept(const error_code& ec, std::shared_ptr<Connection> connection);
+
+
+		
 
 	};
 

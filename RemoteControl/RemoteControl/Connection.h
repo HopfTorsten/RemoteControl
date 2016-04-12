@@ -7,16 +7,20 @@ namespace remote {
 	using writeHandler = std::function<void(const error_code&,size_t)>;
 	using readHandler = std::function<void(const error_code&, size_t)>;
 
+	struct message;
 	class Connection
 	{
 	public:
-		Connection() = delete;
 
-		virtual ~Connection() = 0;
+		virtual ~Connection() = default;
 
 		virtual void receive(void* buffer, size_t length, readHandler handler)=0;
 
 		virtual void send(void* data, size_t length, writeHandler handler) = 0;
+
+		virtual void receive() = 0;
+
+		virtual void send(message msg) = 0;
 
 		virtual void close() = 0;
 

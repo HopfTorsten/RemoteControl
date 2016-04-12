@@ -157,10 +157,13 @@
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="TCPConnection.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConcreteServer.cpp" />
     <ClCompile Include="MainApp.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="TCPConnection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

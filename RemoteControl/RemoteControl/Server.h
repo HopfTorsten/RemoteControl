@@ -1,6 +1,8 @@
 #pragma once
 namespace remote {
 
+	struct message;
+
 	class Server {
 	
 		public:
@@ -9,6 +11,8 @@ namespace remote {
 			virtual void start() = 0;
 
 			virtual void terminate() = 0;
+
+			virtual void interprete(message& msg)=0;
 
 
 
