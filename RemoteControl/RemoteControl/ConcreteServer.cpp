@@ -76,7 +76,23 @@ namespace remote {
 
 	void ConcreteServer::interprete(message & msg)
 	{
-
+		auto command = msg.mBody.command;
+		switch (command)
+		{
+		case VOLUME_DOWN:
+			audioMaster->volumeDown();
+			break;
+		case VOLUME_UP:
+			audioMaster->volumeUp();
+			break;
+		case TOGGLE_MUTE:
+			audioMaster->toggleMute();
+			break;
+		case SHUTDOWN:
+			shutdownHostPC();
+			break;
+		}
+		
 	}
 
 	void ConcreteServer::setAudioMasterMind(AudioMasterMind* mind) 

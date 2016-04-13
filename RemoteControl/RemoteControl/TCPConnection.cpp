@@ -50,6 +50,7 @@ namespace remote {
 			if (!ec)
 			{
 				serverInstance->interprete(lastMessage);
+				receive();
 			}
 			else 
 			{
