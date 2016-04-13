@@ -50,6 +50,8 @@ int main(int argc,  char** argv) {
 
 	AudioMasterMind mind{};
 	mind.start();
+	server.setAudioMasterMind(&mind);
+	
 	BOOST_LOG_TRIVIAL(info) << "Volume is: " << mind.getMasterVolumeScalar();
 
 	char command;

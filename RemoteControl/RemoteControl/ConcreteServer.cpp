@@ -66,14 +66,6 @@ namespace remote {
 		}
 	}
 
-	void ConcreteServer::volumeUp()
-	{	
-	
-	}
-
-	void ConcreteServer::volumeDown()
-	{
-	}
 
 	void ConcreteServer::shutdownHostPC()
 	{
@@ -87,6 +79,9 @@ namespace remote {
 
 	}
 
-	
+	void ConcreteServer::setAudioMasterMind(AudioMasterMind* mind) 
+	{
+		audioMaster = mind;
+	}
 
 }
