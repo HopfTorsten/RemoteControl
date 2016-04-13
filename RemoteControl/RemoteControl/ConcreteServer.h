@@ -3,6 +3,7 @@
 #include "boost\asio.hpp"
 #include <thread>
 #include "Connection.h"
+#include <vector>
 namespace remote{
 
 	using ioService = boost::asio::io_service;
@@ -26,10 +27,16 @@ namespace remote{
 		tcp::acceptor acceptor;
 		tcp::endpoint endpoint;
 		unsigned short port;
+		std::vector<std::shared_ptr<Connection>> connections;
 
+		// methods
 		void handleAccept(const error_code& ec, std::shared_ptr<Connection> connection);
 
+		void volumeUp();
 
+		void volumeDown();
+
+		void shutdownHostPC();
 		
 
 	};

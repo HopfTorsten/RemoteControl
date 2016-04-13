@@ -2,6 +2,9 @@
 #include <boost/thread.hpp>
 #include <boost/program_options.hpp>
 
+#define STDPORT 5070 
+#define SERVER_VERSION 1.0
+
 namespace remote{
  
 

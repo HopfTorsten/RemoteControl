@@ -1,7 +1,8 @@
 #include "MainApp.h"
 #include <iostream>
 #include "ConcreteServer.h"
-#define STDPORT 5070 
+#include "AudioMasterMind.h"
+#include <boost/log/trivial.hpp>
 
 namespace remote {
 
@@ -45,9 +46,14 @@ int main(int argc,  char** argv) {
 	const unsigned short port = (variableMap.count("port")) ? variableMap["port"].as<unsigned short>() : STDPORT;
 
 	ConcreteServer server{ port };
+	server.start();
+
+	AudioMasterMind mind{};
+	mind.start();
+	BOOST_LOG_TRIVIAL(info) << "Volume is: " << mind.getMasterVolumeScalar();
 
 	char command;
 	std::cin >> command;
-
+	server.terminate();
 
 }

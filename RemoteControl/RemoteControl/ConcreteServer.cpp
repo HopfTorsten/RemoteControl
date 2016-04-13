@@ -3,13 +3,15 @@
 #include "TCPConnection.h"
 #include <memory>
 #include <functional>
+#include "Endpointvolume.h"
+#include "Mmdeviceapi.h"
 namespace remote {
 
 	ConcreteServer::ConcreteServer(unsigned short pPort)
 		:port{ pPort }, endpoint{ tcp::v4(),port }, ioServicePtr{ new ioService{} },
 		acceptor{ *ioServicePtr }
 	{
-		BOOST_LOG_TRIVIAL(info) << "Starting Remote Control Server on port " << port;
+		BOOST_LOG_TRIVIAL(info) << "Preparing Remote Control Server on port " << port;
 
 		acceptor.open(endpoint.protocol());
 		acceptor.bind(endpoint);
@@ -20,16 +22,6 @@ namespace remote {
 		auto acceptHandler = [this, connection](const error_code& ec) {this->handleAccept(ec, connection); };
 
 		acceptor.async_accept(connection->getSocket(), acceptHandler);
-
-		auto threadFunction = [this]() 
-		{
-			BOOST_LOG_TRIVIAL(info) << "Worker Thread started"; 
-			ioServicePtr->run();
-		};
-
-		threadPtr = std::make_unique<std::thread>(threadFunction);
-		
-
 	}
 
 
@@ -40,16 +32,32 @@ namespace remote {
 
 	void ConcreteServer::start()
 	{
+		BOOST_LOG_TRIVIAL(info) << "Starting Remote Control Server on port " << port;
+		auto threadFunction = [this]()
+		{
+			BOOST_LOG_TRIVIAL(info) << "Worker Thread started";
+			ioServicePtr->run();
+		};
+
+		threadPtr = std::make_unique<std::thread>(threadFunction);
 	}
 
 	void ConcreteServer::terminate()
 	{
+		for (auto& con : connections) 
+		{
+			con->close();
+		}
+		error_code ec;
+		acceptor.close(ec);
+		threadPtr->join();
 	}
 
 	void ConcreteServer::handleAccept(const error_code & ec, std::shared_ptr<Connection> connection)
 	{
 		if (!ec) {
 			BOOST_LOG_TRIVIAL(info) << "Successfully accepted connection attempt!";
+			connections.push_back(connection);
 		}else{
 			BOOST_LOG_TRIVIAL(error) << "An error occured while accepting an connection attempt: Code" 
 				<< ec.value()<<":" << ec.message();
@@ -58,8 +66,25 @@ namespace remote {
 		}
 	}
 
+	void ConcreteServer::volumeUp()
+	{	
+	
+	}
+
+	void ConcreteServer::volumeDown()
+	{
+	}
+
+	void ConcreteServer::shutdownHostPC()
+	{
+		BOOST_LOG_TRIVIAL(info) << "Shutdown this Computer";
+		terminate();
+		system("shutdown /s /t 5");
+	}
+
 	void ConcreteServer::interprete(message & msg)
 	{
+
 	}
 
 	
