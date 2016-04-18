@@ -23,25 +23,57 @@ namespace RemoteControlPotrableClassLib
 {
     class RemoteControlMessageFactory
     {
+        private const UInt32 SHUTDOWN_COMMAND = 1;
+        private const UInt32 VOLUME_UP_COMMAND = 2;
+        private const UInt32 VOLUME_DOWN_COMMAND = 3;
+        private const UInt32 TOGGLE_MUTE_COMMAND = 4;
 
-       public Message CreateVolumeUpMessage()
+        public Message CreateVolumeUpMessage()
         {
-            return null;
+            Message volUpMsg = CreateMessageWithHeader();
+
+            volUpMsg.body.command = VOLUME_UP_COMMAND;
+
+            return volUpMsg;
         }
 
         public Message CreateVolumeDownMessage()
         {
-            return null;
+            Message volDownMessage = CreateMessageWithHeader();
+
+            volDownMessage.body.command = VOLUME_DOWN_COMMAND;
+
+            return volDownMessage;
         }
 
         public Message CreateToggleMuteMessage()
         {
-            return null;
+            Message toggleMsg = CreateMessageWithHeader();
+
+            toggleMsg.body.command = VOLUME_DOWN_COMMAND;
+
+            return toggleMsg;
         }
 
         public Message CreateShutdownMessage()
         {
-            return null;
+            Message shutdownMsg = CreateMessageWithHeader();
+
+            shutdownMsg.body.command = SHUTDOWN_COMMAND;
+
+            return shutdownMsg;
+        }
+
+        private Message CreateMessageWithHeader()
+        {
+            Message msg = new Message();
+            UInt64 timestamp = (UInt64)DateTime.Now.ToBinary();
+
+            msg.header.appVersion = 1;
+            msg.header.timestamp = timestamp;
+            msg.header.appType = 1;
+
+            return msg;
         }
     }
 }

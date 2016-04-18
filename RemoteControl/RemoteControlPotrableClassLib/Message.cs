@@ -26,8 +26,8 @@ namespace RemoteControlPotrableClassLib
     class Message
     {
         
-        private Header header { get; set; }
-        private Body body { get; set; }
+        public Header header { get; set; }
+        public Body body { get; set; }
 
 
         public byte[] GetBytes()
@@ -43,12 +43,12 @@ namespace RemoteControlPotrableClassLib
             return mStream.ToArray();
         }
 
-        class Body
+        public class Body
         {
             public UInt32 command { get; set; }
         }
 
-        class Header
+        public class Header
         {
             public Byte appType {  get; set; }
             public Byte appVersion { get; set; }
