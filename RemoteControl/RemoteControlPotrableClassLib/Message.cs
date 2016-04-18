@@ -16,6 +16,7 @@ If not, see http://www.gnu.org/licenses/.
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,19 +32,27 @@ namespace RemoteControlPotrableClassLib
 
         public byte[] GetBytes()
         {
-            return null;
+            MemoryStream mStream = new MemoryStream();
+            //write the header
+            mStream.WriteByte(header.appType);
+            mStream.WriteByte(header.appVersion);
+            mStream.Write(BitConverter.GetBytes(header.timestamp),0,sizeof(UInt64));
+            // write the body
+            mStream.Write(BitConverter.GetBytes(body.command), 0, sizeof(UInt32));
+            // return byte array
+            return mStream.ToArray();
         }
 
         class Body
         {
-            UInt32 command { get; set; }
+            public UInt32 command { get; set; }
         }
 
         class Header
         {
-            Byte appType { get; set; }
-            Byte appVersion { get; set; }
-            UInt64 timestamp { get; set; }
+            public Byte appType {  get; set; }
+            public Byte appVersion { get; set; }
+            public UInt64 timestamp { get; set; }
         }
     }
 }
