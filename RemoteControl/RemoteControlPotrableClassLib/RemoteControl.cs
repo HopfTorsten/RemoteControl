@@ -26,6 +26,7 @@ namespace RemoteControlPotrableClassLib
     {
         private TcpSocketClient tcpClient;
         private bool connected = false;
+        private RemoteControlMessageFactory messageFactory = new RemoteControlMessageFactory();
 
         private const UInt32 SHUTDOWN_COMMAND = 1;
         private const UInt32 VOLUME_UP_COMMAND = 2;
@@ -35,14 +36,14 @@ namespace RemoteControlPotrableClassLib
         public void CloseConnection()
         {
 
-          /* await */ tcpClient.DisconnectAsync();
+            tcpClient.DisconnectAsync().Wait();
             connected = false;
         }
 
         public void Connect(string address, ushort port)
         {
-           tcpClient = new TcpSocketClient();
-           /*await*/ tcpClient.ConnectAsync(address,port);
+            tcpClient = new TcpSocketClient();
+            tcpClient.ConnectAsync(address, port).Wait(); ;
             connected = true;
         }
 
@@ -50,20 +51,28 @@ namespace RemoteControlPotrableClassLib
         {
             if (!connected)
                 throw new InvalidOperationException("Can not shutdown remote host before connecting!");
-
-
+            var shutdownMessage = messageFactory.CreateShutdownMessage();
+            var shutdownBytes = shutdownMessage.GetBytes();
+            tcpClient.WriteStream.Write(shutdownBytes, 0, shutdownBytes.Length);
         }
 
         public void RemoteVolumeDown()
         {
             if (!connected)
                 throw new InvalidOperationException("Can not decrease volume on remote host before connecting!");
+            var volumeDownMessage = messageFactory.CreateVolumeDownMessage();
+            var volumeDownBytes = volumeDownMessage.GetBytes();
+            tcpClient.WriteStream.Write(volumeDownBytes, 0, volumeDownBytes.Length);
         }
 
         public void RemoteVolumeUp()
         {
             if (!connected)
-                new InvalidOperationException("Can not increace volume on remote host before connecting!");
+               throw new InvalidOperationException("Can not increace volume on remote host before connecting!");
+            var volumeUpMessage = messageFactory.CreateVolumeUpMessage();
+            var volumeUpBytes = volumeUpMessage.GetBytes();
+            tcpClient.WriteStream.Write(volumeUpBytes, 0, volumeUpBytes.Length);
+
         }
     }
 }
