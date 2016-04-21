@@ -13,6 +13,8 @@ namespace RemoteControlApp
         public ConnectionPage()
         {
             InitializeComponent();
+
+            ConnectionList.ItemsSource = new List<String> { "Porno Pub", "Zur goldenen Sackratte", "ZUm Klöten-Wirt" };
         }
     }
 }
