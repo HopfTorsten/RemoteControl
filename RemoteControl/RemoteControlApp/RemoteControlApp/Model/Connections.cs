@@ -13,33 +13,20 @@ You should have received a copy of the GNU General Public License along with thi
 If not, see http://www.gnu.org/licenses/.
 */
 
-using RemoteControlApp.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
-using Xamarin.Forms;
-
-namespace RemoteControlApp
+namespace RemoteControlApp.Model
 {
-    public partial class ConnectionPage : ContentPage
+    public class Connections
     {
-        private Connections connections;
+        public List<Connection> Values { get; set; }
 
-        public ConnectionPage(Connections connections)
+        public Connections()
         {
-            InitializeComponent();
-            this.connections = connections;
-            ConnectionList.ItemsSource = connections.Values;
-        }
-
-        async public void OnAddConnectionClicked(Object sender, EventArgs e)
-        {
-            //DisplayAlert("Verbindung hinzufügen", "Bald kannst Du hier Verbindungen hinzufügen", "Verbinden");
-            await Navigation.PushModalAsync(new AddConnectionDialog());
+            Values = new List<Connection>();
         }
     }
 }

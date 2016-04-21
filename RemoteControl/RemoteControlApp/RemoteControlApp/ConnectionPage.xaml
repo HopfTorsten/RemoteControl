@@ -1,7 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RemoteControlApp.ConnectionPage">
-  <ListView x:Name="ConnectionList"/>
-
+             x:Class="RemoteControlApp.ConnectionPage"
+             Title="Verbindungen">
+  <ScrollView>
+    <ListView x:Name="ConnectionList" HasUnevenRows="True">
+      <ListView.Header>
+        <StackLayout Orientation="Vertical">
+          <Label Text="Verbindungen"
+          Font="Large" />
+        </StackLayout>
+      </ListView.Header>
+      <ListView.Footer>
+        <StackLayout Orientation="Vertical" >
+          <Button Text="Verbindung hinzufügen" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Clicked="OnAddConnectionClicked"/>
+        </StackLayout>
+      </ListView.Footer>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Orientation="Vertical" Padding="20">
+              <Label Text="{Binding Name}" Font="Large"/>
+              <Label Text="{Binding IP}" Font="Medium"/>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ScrollView>
 </ContentPage>
