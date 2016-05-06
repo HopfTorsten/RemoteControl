@@ -88,6 +88,13 @@ namespace remote {
 		system("shutdown /s /t 5");
 	}
 
+	void ConcreteServer::sleepHostPC()
+	{
+		BOOST_LOG_TRIVIAL(info) << "Set pc into sleeping mode";
+		terminate();
+		system("Rundll32.exe Powrprof.dll,SetSuspendState Sleep");
+	}
+
 	void ConcreteServer::interprete(message & msg)
 	{
 		auto command = msg.mBody.command;

@@ -36,6 +36,7 @@ namespace remote{
 		virtual void interprete(message & msg) override;
 
 		void shutdownHostPC();
+		void sleepHostPC();
 		void setAudioMasterMind(AudioMasterMind* mind);
 
 	private:

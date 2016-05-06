@@ -15,9 +15,11 @@ If not, see http://www.gnu.org/licenses/.
 #pragma once
 
 #define SHUTDOWN 1
+#define SLEEP 11
 #define VOLUME_UP 2
 #define VOLUME_DOWN 3
 #define TOGGLE_MUTE 4
+
 
 
 namespace remote {

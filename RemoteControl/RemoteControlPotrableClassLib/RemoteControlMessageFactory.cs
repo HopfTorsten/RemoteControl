@@ -24,6 +24,7 @@ namespace RemoteControlPotrableClassLib
     class RemoteControlMessageFactory
     {
         private const UInt32 SHUTDOWN_COMMAND = 1;
+        private const UInt32 SLEEP_COMMAND = 11;
         private const UInt32 VOLUME_UP_COMMAND = 2;
         private const UInt32 VOLUME_DOWN_COMMAND = 3;
         private const UInt32 TOGGLE_MUTE_COMMAND = 4;
@@ -62,6 +63,15 @@ namespace RemoteControlPotrableClassLib
             shutdownMsg.body.command = SHUTDOWN_COMMAND;
 
             return shutdownMsg;
+        }
+
+        public Message CreateSleepMessage()
+        {
+            Message sleepMessage = CreateMessageWithHeader();
+
+            sleepMessage.body.command = SLEEP_COMMAND;
+
+            return sleepMessage;
         }
 
         private Message CreateMessageWithHeader()
